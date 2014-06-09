@@ -1,0 +1,23 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  uporabnik: MyString
+  pass1: MyString
+  pass2: MyString
+  ime: MyString
+  priimek: MyString
+  number: MyString
+  email: MyString
+  phone: MyString
+  rank: MyString
+
+two:
+  uporabnik: MyString
+  pass1: MyString
+  pass2: MyString
+  ime: MyString
+  priimek: MyString
+  number: MyString
+  email: MyString
+  phone: MyString
+  rank: MyString

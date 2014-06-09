@@ -1,0 +1,190 @@
+<!DOCTYPE html>
+
+<!-- New HTML5 section elements. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Aplikacija e-Ocenjevanje" />
+                 <!--<f:metadata>
+                    <f:event type="preRenderView" listener=""/>
+                </f:metadata>-->
+		<title>e-Ocenjevanje</title>
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/menucss.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="registracija.js"></script>
+		<script src="generic.js"></script>
+	</h:head>
+	<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="site_title"></div>
+		</div>
+		<div id="menu" class="menucss">
+			<ul>
+				<li><a href = "index.xhtml">Domov</a></li>
+				<h:panelGroup layout="block" rendered="#{menuTagsBean.kriterij}">
+				<li><a href = "kriterij.xhtml">Kriterij</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.projekti}">
+				<li><a href = "projekti.xhtml">Projekti</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.ocenjevanje}">
+				<li><a href = "ocenjevanje.xhtml">Ocenjevanje</a></li>
+                                </h:panelGroup>
+				<li><a href = "prijava.xhtml">Prijava</a></li>
+			</ul>
+		</div>
+		<div id="main">
+			<div id="evaluation_form">
+				<h:form>
+                                        <h:message id="nameMessage" for="nameInputText" styleClass="error"/>
+					<p>
+						<label>Uporabniško ime:<br />
+						    <h:inputText id="nameInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    requiredMessage="Vnesite uporabniško ime."
+                                                    value="#{userBean.name}"
+                                                    validatorMessage="Vaše ime mora biti krajše od 30 znakov.">
+                                                    <f:validateLength maximum="30" />
+                                                    </h:inputText>
+						</label>
+					 </p>
+					 
+					 <h:message id="pass1Message" for="pass1InputText" styleClass="error"/>
+                                         <p>
+						<label>Vnesite geslo:<br />
+	 					    <h:inputSecret id="pass1InputText" required="true"
+                                                    styleClass="normaltext"
+                                                    requiredMessage="Vnesite geslo."
+                                                    value="#{userBean.pass1}"
+                                                    validatorMessage="Vaše geslo mora biti krajše od 30 znakov.">
+                                                    <f:validateLength maximum="30" />
+                                                    </h:inputSecret> 
+						</label>
+					 </p>
+                                         <h:message id="pass2Message" for="pass2InputText" styleClass="error"/>
+					 <p>
+						<label>Ponovno vnesite geslo:<br />
+						   <h:inputSecret id="pass2InputText" required="true"
+                                                    styleClass="normaltext"
+                                                    requiredMessage="Ponovno vnesite geslo."
+                                                    value="#{userBean.pass2}"
+                                                    validatorMessage="Vaše geslo mora biti krajše od 30 znakov.">
+                                                    <f:validateLength maximum="30" />
+                                                    </h:inputSecret> 
+						</label>
+					 </p>
+                                         <h:message id="fnameMessage" for="fnameInputText" styleClass="error"/>
+					<p>
+						<label>Ime:<br />
+						   <h:inputText id="fnameInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    p:placeholder="Janez"
+                                                    requiredMessage="Vnesite ime."
+                                                    value="#{userBean.fname}"
+                                                    validatorMessage="Vaše ime mora biti krajše od 30 znakov.">
+                                                    <f:validateLength maximum="30" />
+                                                    </h:inputText> 
+						</label>
+					 </p>
+                                         <h:message id="snameMessage" for="snameInputText" styleClass="error"/>
+					 
+					 <p>
+						<label>Priimek:<br />
+						   <h:inputText id="snameInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    p:placeholder="Novak"
+                                                    requiredMessage="Vnesite priimek."
+                                                    value="#{userBean.sname}"
+                                                    validatorMessage="Vaš priimek mora biti krajše od 30 znakov.">
+                                                    <f:validateLength maximum="30" />
+                                                    </h:inputText> 
+						</label>
+					 </p>
+                                         <h:message id="numberMessage" for="numberInputText" styleClass="error"/>
+					 <p>
+						<label>Vpisna številka:<br />
+						   <h:inputText id="numberInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    p:placeholder="63110000"
+                                                    requiredMessage="Vnesite vpisno številko."
+                                                    value="#{userBean.number}"
+                                                    validatorMessage="Napačen vnos vpisne številke. Vsebovati mora 8 števk.">
+                                                    <f:validateRegex pattern=
+                                                        "\d{8}" />
+                                                    </h:inputText> 
+						</label>
+					 </p>
+                                         <h:message id="emailMessage" for="emailInputText" styleClass="error"/>
+					 <p>
+						<label>Email:<br />
+						   <h:inputText id="emailInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    p:placeholder="ime@domena.si"
+                                                    requiredMessage="Vnesite vaš e-mail naslov."
+                                                    value="#{userBean.email}"
+                                                    validatorMessage="Napačen vnos e-mail naslova. Izgledati mora kot npt.: ime@domena.si.">
+                                                    <f:validateRegex pattern=
+                                                        "[\w\.-]*[a-zA-Z0-9_]@[\w\.-]*[a-zA-Z0-9]\.[a-zA-Z][a-zA-Z\.]*[a-zA-Z]" />
+                                                    </h:inputText> 
+						</label>
+					 </p>
+                                         <h:message id="phoneMessage" for="phoneInputText" styleClass="error"/>
+					 <p>
+						<label>Telefonska številka:<br />
+						   <h:inputText id="phoneInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    p:placeholder="040222111"
+                                                    requiredMessage="Vnesite telefonsko številko."
+                                                    value="#{userBean.phone}"
+                                                    validatorMessage="Napačen vnos vpisne številke. Vsebovati mora le 9 števk.">
+                                                    <f:validateRegex pattern=
+                                                        "\d{9}" />
+                                                    </h:inputText> 
+						</label>
+					 </p>
+					 <p>
+						Ste profesor, asistent ali študent?<br />
+
+                                                <h:selectOneRadio id="roleInputRadio" value="#{userBean.role}">
+                                                        <f:selectItem itemValue="1" itemLabel="Študent" id="student"/>
+                                                        <f:selectItem itemValue="2" itemLabel="Asistent" />
+                                                        <f:selectItem itemValue="3" itemLabel="Profesor" />
+                                                </h:selectOneRadio>
+						<!--<label>
+						   <input name = "rank" type = "radio"
+							  value = "profesor" /></label>Profesor
+						<label>
+						   <input name = "rank" type = "radio" 
+							  value = "asistent" /></label>Asistent
+						<label>
+						   <input name = "rank" type = "radio" 
+							  value = "student" checked="checked" /></label>Študent-->
+					 </p>
+					 <p>
+						<label>
+						<h:commandButton value="Registriraj se" styleClass="submit_btn" type="submit" action="#{userBean.registerUser()}">
+                                                    <f:ajax execute="nameInputText pass1InputText pass2InputText fnameInputText snameInputText numberInputText emailInputText phoneInputText roleInputRadio"
+                                                            render="nameMessage pass1Message pass2Message fnameMessage snameMessage numberMessage emailMessage phoneMessage"/>
+                                                    
+                                                </h:commandButton>
+						</label><label>
+						<!--<h:commandButton value="Ponastavi vse" styleClass="submit_btn" type="reset" action="">
+                                                </h:commandButton>-->
+						</label>
+					 </p> 
+				</h:form>
+			</div>
+		</div>
+	</div>
+	<div id="footer_wrapper">    
+    <div id="footer">
+    	<p>Copyright © 2013 Luka Krsnik</p>
+    </div>
+	</div>
+	</h:body>
+</html>

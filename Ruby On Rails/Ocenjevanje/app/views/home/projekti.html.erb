@@ -1,0 +1,91 @@
+<%= javascript_include_tag("projekti.js") %>
+<%= javascript_include_tag("generic.js") %>
+<%= javascript_include_tag("readxml.js") %>
+
+
+<div id="wrapper">
+  <div id="header">
+    <div id="site_title"></div>
+  </div>
+  <div id="menu" class="menucss">
+    <ul>
+      <li><a href = "index">Domov</a></li>
+      <li><a href = "kriterij">Kriterij</a></li>
+      <li><a href = "projekti" class="selected">Projekti</a></li>
+      <li><a href = "ocenjevanje">Ocenjevanje</a></li>
+      <% if !session.has_key?("rank") %>
+          <li><a href = "prijava">Prijava</a></li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="main">
+    <form method = "post" action="prijava"><input id="prevod" type = "submit" class="submit_btn" value = "Odjava" /></form>
+    <% if !@findM0.empty? or !@findM1.empty? or !@findM2.empty? %>
+    <h3 id="6">Vaša skupina je že oddala projekt.</h3>
+    <% else %>
+    <h3 id="6">Navodila za oddajo projekta:</h3>
+    <ul id="list" class="list_bullet">
+      <li id="alin1">Vpišite naslov projekta</li>
+      <li id="alin2">Vpišite platformo na kateri boste delali</li>
+      <li id="alin3">Vpišite imena ostalih članov</li>
+      <li id="alin4">Zapišite pot do končnega projekta na vašem računalniku</li>
+      <li id="alin5">Zapišite pot do izvorne kode na vašem računalniku</li>
+    </ul>
+
+    <h3 id="7">Oddaja vašega projekta:</h3>
+    <form id="dodajProjekt" method = "post" action="projekti">
+      <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+        <p id="errorTitle" class="error">Vnesite naslov projekta.</p>
+        <p>
+        <div id="8">Naslov vašega projekta:</div>
+        <label>
+          <input name="naslov" type = "text" class="normaltext" placeholder = "Wiki" required />
+        </label>
+        </p>
+        <p>
+        <div id="9">Platforma:</div>
+        <label>
+          <input name="platforma" type = "text" class="normaltext" placeholder = "Android" required />
+        </label>
+        </p>
+        <p id="errorOtherParticipants" class="error">Vnesite imena in priimke ostalih članov skupine.</p>
+        <p>
+        <div id="10">Ostali člani skupine:</div>
+        <datalist id="imena">
+          <option value="Janez Novak">
+          <option value="Micka Prešeren">
+        </datalist>
+        <label>
+          <input name="mate1" type = "text" list="imena" class="normaltext" placeholder = "Janez Novak" required />
+        </label><br>
+        <label>
+          <input name="mate2" type = "text" list="imena" class="normaltext" placeholder = "Janez Novak" required />
+        </label>
+        </p>
+        <p id="errorProject" class="error">Vnesite spletni naslov projekta.</p>
+        <p>
+        <div id="11">Oddaja projekta:</div>
+        <label>
+          <input name="sourceProject" type = "text" class = "normaltext" required />
+        </label>
+        </p>
+        <p id="errorCode" class="error">Vnesite spletni naslov izvorne kode.</p>
+        <p>
+        <div id="12">Oddaja izvorne kode:</div>
+        <label>
+          <input name="sourceCode" type = "text" class = "normaltext" required />
+        </label>
+        </p>
+        <p>
+          <input id="oddaja" type = "submit" class="submit_btn" value = "Dokoncno oddaj projekt" />
+        </p>
+    </form>
+    <% end %>
+  </div>
+</div>
+<div id="footer_wrapper">
+  <div id="footer">
+    <p>Copyright © 2013 Luka Krsnik</p>
+  </div>
+</div>
+

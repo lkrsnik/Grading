@@ -1,0 +1,149 @@
+<!DOCTYPE html>
+
+<!-- New HTML5 section elements. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Aplikacija e-Ocenjevanje" />
+		<title>e-Ocenjevanje</title>
+		
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/menucss.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="ocenjevanje.js"></script>
+		<script src="generic.js"></script>
+		<script src="readxml.js"></script>
+	</h:head>
+	<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="site_title"></div>
+		</div>
+		<div id="menu" class="menucss">
+			<ul>
+				<li><a href = "index.xhtml">Domov</a></li>
+				<h:panelGroup layout="block" rendered="#{menuTagsBean.kriterij}">
+				<li><a href = "kriterij.xhtml">Kriterij</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.projekti}">
+				<li><a href = "projekti.xhtml">Projekti</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.ocenjevanje}">
+				<li><a href = "ocenjevanje.xhtml" class="selected">Ocenjevanje</a></li>
+                                </h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{userBean.isNoone}">
+				<li><a href = "prijava.xhtml">Prijava</a></li>
+                                </h:panelGroup>
+			</ul>
+		</div>
+		<div id="main">
+                    <h:form><h:commandButton styleClass="submit_btn_logout" value = "Odjavi me" action="#{userBean.noOne()}" /></h:form>
+			<h:panelGroup layout="block" rendered="#{userBean.isStud}">
+                        <h3>Vaša ocena je:</h3>
+			<p class="giant">
+				Niste še ocenjeni.
+			</p>
+			<p>
+				<audio controls = "controls" >
+				  <source src = "Ta-da.wav" />
+				  <source src = "Ta-da.mp3" />
+				  Your browser does not support the audio element
+				</audio>
+			</p>
+                        </h:panelGroup>
+                        
+			<p>Seznam študentov pri predmetu</p>
+			<div id="tabelaSeznama">
+			</div>
+                        
+			<p>
+				<label> Izberite projekt, ki ga želite oceniti:<br />
+				  <select id="selektor" name = "groceries" class="normaltext" multiple="multiple">
+					<option> projekt1 </option>
+					<option> projekt2 </option>
+					<option> projekt3 </option>
+					
+				  </select>
+                                </label>
+                            <br />
+				<label>
+					<input type = "button" class="submit_btn" value = "Pokaži končni izdelek" />
+				</label><label>
+					<input type = "button" class="submit_btn" value = "Pokaži izvorno kodo" />
+				</label>
+			</p>
+			<div id="ocenjevanje">
+				<h3 id="naslovSklopa">Ocenjevanje drugih projektov in soustvarjalcev vašega projekta:</h3>
+				<h:panelGroup layout="block" rendered="#{userBean.isStud}">
+                                <p>
+                                    
+					Oceni projekt:<br />
+					<label>
+					   <input name = "ocena" type = "radio"
+						  value = "profesor" checked="checked" /></label>Dobro
+					<label>
+					   <input name = "ocena" type = "radio" 
+						  value = "asistent" checked="checked" /></label>Srednje
+					<label>
+					   <input name = "ocena" type = "radio" 
+						  value = "student" checked="checked" /></label>Slabo
+					<br />
+					Komentar k oceni:<br />
+					<textarea name = "comments"
+					   rows = "6" cols = "40" ></textarea><br />
+					<input id="btn1" type = "submit" class="submit_btn" value = "Oceni" />
+                                    
+                                </p>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{!userBean.isStud}">
+				<p id="errorGradeStudents" class="error">Napačen vnos ocene. Vpišite število med 1 in 10.</p>
+				<p>
+					Oceni projekt:<br />
+					<label>
+					   <input id="proff" type = "text" class="normaltext" required="required" /> 
+					</label><br />
+					Komentar k oceni:<br />
+					<textarea name = "comments"
+					   rows = "6" cols = "40"></textarea><br />
+					<input id="btn2" type = "submit" class="submit_btn" value = "Oceni" />
+				</p>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{userBean.isStud}">
+				<p id="errorGradeInside" class="error">Ime sošolca znotraj projekta ni pravilno vnešeno.</p>
+				<p>
+					Oceni sošolce znotraj projekta:<br />
+					<datalist id="imena">
+						  <option value="Janez Novak" />
+					</datalist>
+					<label>
+						
+						<input id="vpisanoIme" type = "text" list="imena" class="normaltext" placeholder = "Janez Novak" required="required" /> 
+					</label><br />
+					<label>
+					   <input name = "ocenaZ" type = "radio"
+						  value = "profesor" checked="checked" /></label>Dobro
+					<label>
+					   <input name = "ocenaZ" type = "radio" 
+						  value = "asistent" /></label>Srednje
+					<label>
+					   <input name = "ocenaZ" type = "radio" 
+						  value = "student" /></label>Slabo
+					<br />
+					Komentar k oceni:<br />
+					<textarea name = "comments"
+					   rows = "6" cols = "40"></textarea><br />
+					<input id="btn3" type = "submit" class="submit_btn" value = "Oceni" />
+				</p>
+                                </h:panelGroup>
+			</div>
+		</div>
+	</div>
+	<div id="footer_wrapper">    
+    <div id="footer">
+    	<p>Copyright © 2013 Luka Krsnik</p>
+    </div>
+	</div>
+	</h:body>
+</html>

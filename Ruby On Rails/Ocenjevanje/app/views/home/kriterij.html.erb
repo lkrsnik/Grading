@@ -1,0 +1,94 @@
+<%= javascript_include_tag("kriterij.js") %>
+<%= javascript_include_tag("generic.js") %>
+
+<div id="wrapper">
+  <div id="header">
+    <div id="site_title"></div>
+  </div>
+  <div id="menu" class="menucss">
+    <ul>
+      <li><a href = "index">Domov</a></li>
+      <li><a href = "kriterij" class="selected">Kriterij</a></li>
+      <% if session[:rank][0]=="student" %>
+          <li><a href = "projekti">Projekti</a></li>
+      <% end %>
+      <li><a href = "ocenjevanje">Ocenjevanje</a></li>
+      <% if !session.has_key?("rank") %>
+          <li><a href = "prijava">Prijava</a></li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="main">
+    <form method = "post" action="prijava"><input id="prevod" type = "submit" class="submit_btn" value = "Odjava" /></form>
+    <div id="students">
+      <h3>Navodila za ocenjevanje:</h3>
+      <p><%= @grading.pluck(:instructions)[0] %></p>
+      <table>
+        <thead>
+        <tr>
+          <th>Ocenjevalec</th>
+          <th>Delež ocene</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+          <td>Profesor</td>
+          <td><%= @grading.pluck(:prof)[0] %></td>
+        </tr>
+        <tr>
+          <td>Asistenti</td>
+          <td><%= @grading.pluck(:asist)[0] %></td>
+        </tr>
+        <tr>
+          <td>Študentje</td>
+          <td><%= @grading.pluck(:stud)[0] %></td>
+        </tr>
+        </tbody>
+        <tfoot>
+        <tr>
+          <td colspan="2">Ocena sodelavcev znotraj projekta prav tako spada pod Študentje.</td>
+        </tr>
+        </tfoot>
+      </table>
+    </div>
+    <div id="white_space"></div>
+
+
+
+    <% if session[:rank][0]=="profesor" %>
+    <form method = "post" action="kriterij">
+      <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+      <input id="nastaviKriterij" type = "submit" class="submit_btn" value = "Prikaži/skrij ocene" />
+    </form>
+
+    <div id="evaluation_form">
+      <form method = "post" action="kriterij">
+        <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+        <h3>Pisna navodila:</h3>
+        <p id="errorInstructions" class="error">Vnesite tekst z navodili kako nameravate oceniti delo študentov.</p>
+        <p><label>
+          <textarea name = "instructions"
+                    rows = "6" cols = "60"><%= @grading.pluck(:instructions)[0] %></textarea>
+        </label></p>
+        <h3>Delež ocene, ki jo doprinesejo posamezni faktorji:</h3>
+        <p id="errorSlider" class="error">Napačni deleži ocene. Vsota vseh treh deležev mora biti enaka 100.</p>
+        <p id="errorNotANumber" class="error">Vnosni podatki morajo biti številke.</p>
+        <p>
+          <label>Profesor:<br><input id="proSlider" type = "range" min="0" max="100" value="<%= @grading.pluck(:prof)[0] %>" class="input_slider" /> </label><label><input id="proNum" name = "prof" type="number" min="0" max="100" placeholder = "0-100" value="<%= @grading.pluck(:prof)[0] %>" class="input_field" required/><br></label>
+          <label>Asistent:<br><input id="asiSlider" type = "range" min="0" max="100" value="<%= @grading.pluck(:asist)[0] %>" class="input_slider" /> </label><label><input id="asiNum" name = "asist" type="number" min="0" max="100" placeholder = "0-100" value="<%= @grading.pluck(:asist)[0] %>" class="input_field" required/><br></label>
+          <label>Študenti:<br><input id="stuSlider" type = "range" min="0" max="100" value="<%= @grading.pluck(:stud)[0] %>" class="input_slider" /> </label><label><input id="stuNum" name = "stud" type="number" min="0" max="100" placeholder = "0-100" value="<%= @grading.pluck(:stud)[0] %>" class="input_field" required/><br></label>
+        </p>
+        <p>
+          <input id="nastaviKriterij" type = "submit" class="submit_btn" value = "Potrdi kriterij" />
+        </p>
+      </form>
+    </div>
+    <% end %>
+
+  </div>
+</div>
+<div id="footer_wrapper">
+  <div id="footer">
+    <p>Copyright © 2013 Luka Krsnik</p>
+  </div>
+</div>

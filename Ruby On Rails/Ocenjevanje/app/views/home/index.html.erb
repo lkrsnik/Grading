@@ -1,0 +1,38 @@
+<%= javascript_include_tag("index.js") %>
+<%= javascript_include_tag("generic.js") %>
+
+<div id="wrapper">
+  <div id="header">
+    <div id="site_title"></div>
+  </div>
+  <div id="menu" class="menucss">
+    <ul>
+      <li><a href = "index" class="selected">Domov</a></li>
+      <% if session.has_key?("rank") %>
+      <li><a href = "kriterij">Kriterij</a></li>
+      <% if session[:rank][0]=="student" %>
+          <li><a href = "projekti">Projekti</a></li>
+      <% end %>
+      <li><a href = "ocenjevanje">Ocenjevanje</a></li>
+      <% end %>
+      <% if !session.has_key?("rank") %>
+      <li><a href = "prijava">Prijava</a></li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="main">
+    <% if session.has_key?("rank") %>
+    <form method = "post" action="prijava"><input id="prevod" type = "submit" class="submit_btn" value = "Odjava" /></form>
+    <% end %>
+    <p>
+      Pozdravljeni v sistemu E-Ocenjevanje. Sistem je namenjen oddajanju študentskih projektov, ter dinamičnemu ocenjevanju le teh.
+      Za delovanje znotraj sistema je najprej potrebna prijava, nato pa boste imeli možnost oddajanja projektov, dodajanja komentarjev in ocenjevanja drugih študentov.
+    </p>
+    <%= image_tag("evaluation.jpg", :alt => "slika", :id => "slika") %>
+  </div>
+</div>
+<div id="footer_wrapper">
+  <div id="footer">
+    <p>Copyright © 2013 Luka Krsnik</p>
+  </div>
+</div>

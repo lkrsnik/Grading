@@ -1,0 +1,25 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  user: MyString
+  proj: MyString
+  ocena_p: MyString
+  komentar_p: MyString
+  ocena_s: MyString
+  komentar_s: MyString
+  mateName: MyString
+  ocena_m: MyString
+  komentar_m: MyString
+  status: MyString
+
+two:
+  user: MyString
+  proj: MyString
+  ocena_p: MyString
+  komentar_p: MyString
+  ocena_s: MyString
+  komentar_s: MyString
+  mateName: MyString
+  ocena_m: MyString
+  komentar_m: MyString
+  status: MyString

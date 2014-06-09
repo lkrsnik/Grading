@@ -1,0 +1,13 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  [instructions: MyString
+  prof: MyString
+  asist: MyString
+  stud: 
+
+two:
+  [instructions: MyString
+  prof: MyString
+  asist: MyString
+  stud: 

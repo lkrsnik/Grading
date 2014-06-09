@@ -1,0 +1,50 @@
+<%= javascript_include_tag("prijava.js") %>
+<%= javascript_include_tag("generic.js") %>
+
+
+<div id="wrapper">
+  <div id="header">
+    <div id="site_title"></div>
+  </div>
+  <div id="menu" class="menucss">
+    <ul>
+      <li><a href = "index">Domov</a></li>
+      <% if session.has_key?("rank") %>
+      <li><a href = "kriterij">Kriterij</a></li>
+      <li><a href = "projekti">Projekti</a></li>
+      <li><a href = "ocenjevanje">Ocenjevanje</a></li>
+      <% end %>
+      <li><a href = "prijava" class="selected">Prijava</a></li>
+    </ul>
+  </div>
+  <div id="main">
+    <form id="forma" method = "post" action="prijava">
+      <p id="errorUser" class="error">Vnesite uporabniško ime.</p>
+      <p>
+        <label>Uporabniško ime:<br>
+          <input name = "username" class="normaltext" type = "text" />
+        </label>
+      </p>
+      <p id="errorPass" class="error">Vnesite geslo.</p>
+      <p>
+        <label>Geslo:<br>
+          <input name = "password" class="normaltext" type = "password" />
+        </label>
+      </p>
+      <% if request.post? and params.has_key?(:username) and @res.empty? %>
+      <p id="errorMsg" class="error">Uporabniško ime ali geslo, ki ste ju vnesli ne obstajata. Lahko se registrirate.</p>
+      <% end %>
+      <p>
+        <input id="prijava" type = "submit" class="submit_btn" value = "Prijava" />
+      </p>
+      <p>
+        <a href = "registracija.html">Registracija</a>
+      </p>
+    </form>
+  </div>
+</div>
+<div id="footer_wrapper">
+  <div id="footer">
+    <p>Copyright © 2013 Luka Krsnik</p>
+  </div>
+</div>

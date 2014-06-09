@@ -1,0 +1,157 @@
+<!DOCTYPE html>
+
+<!-- New HTML5 section elements. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core"
+   xmlns:p="http://xmlns.jcp.org/jsf/passthrough">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Aplikacija e-Ocenjevanje" />
+		<title>e-Ocenjevanje</title>
+		
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/menucss.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="projekti.js"></script>
+		<script src="generic.js"></script>
+		<script src="readxml.js"></script>
+		
+	</h:head>
+	<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="site_title"></div>
+		</div>
+		<div id="menu" class="menucss">
+			<ul>
+				<li><a id="1" href = "index.xhtml">Domov</a></li>
+				<h:panelGroup layout="block" rendered="#{menuTagsBean.kriterij}">
+				<li><a href = "kriterij.xhtml">Kriterij</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.projekti}">
+				<li><a href = "projekti.xhtml" class="selected">Projekti</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.ocenjevanje}">
+				<li><a href = "ocenjevanje.xhtml">Ocenjevanje</a></li>
+                                </h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{userBean.isNoone}">
+				<li><a href = "prijava.xhtml">Prijava</a></li>
+                                </h:panelGroup>
+			</ul>
+		</div>
+		<div id="main">
+			<!--<input id="prevod" type = "button" class="submit_btn" value = "English language" onClick="" />-->
+			
+                        <h:form><h:commandButton styleClass="submit_btn_logout" value = "Odjavi me" action="#{userBean.noOne()}" /></h:form>
+                        
+                        <h3 id="6">Navodila za oddajo projekta:</h3>
+				<ul id="list" class="list_bullet">
+					<li id="alin1">Vpišite naslov projekta</li>
+					<li id="alin2">Vpišite platformo na kateri boste delali</li>
+					<li id="alin3">Vpišite imena ostalih članov</li>
+					<li id="alin4">Zapišite pot do končnega projekta na vašem računalniku</li>
+					<li id="alin5">Zapišite pot do izvorne kode na vašem računalniku</li>
+				</ul>
+			
+			<h3 id="7">Oddaja vašega projekta:</h3>
+                        <h:form>
+                            <h:message id="titleMessage" for="titleInputText" styleClass="error"/>
+                            <p>
+                                    <div id="8">Naslov vašega projekta:</div>
+                                    <label>
+                                       <h:inputText id="titleInputText" required="true"
+                                        styleClass="normaltext"
+                                        p:placeholder="projekt1"
+                                        requiredMessage="Vnesite naslov vašega projekta."
+                                        value="#{projectBean.title}"
+                                        validatorMessage="Vaš naslov mora biti krajši od 30 znakov.">
+                                        <f:validateLength maximum="30" />
+                                        </h:inputText> 
+                                    </label>
+                            </p>
+                            <h:message id="platformMessage" for="platformInputText" styleClass="error"/>
+                            <p>
+                                    <div id="9">Platforma:</div>
+                                    <label>
+                                       <h:inputText id="platformInputText" required="true"
+                                        styleClass="normaltext"
+                                        p:placeholder="Android"
+                                        requiredMessage="Vnesite ime platforme."
+                                        value="#{projectBean.platform}"
+                                        validatorMessage="Dolžina imena platforme mora biti krajša od 30 znakov.">
+                                        <f:validateLength maximum="30" />
+                                        </h:inputText> 
+                                    </label>
+                            </p>
+                            
+                            <p>
+                                    <div id="10">Ostali člani skupine:</div>
+                                    <h:message id="mate1Message" for="mate1InputText" styleClass="error"/>
+                                    <p><label>
+                                            <h:inputText id="mate1InputText" required="true"
+                                            styleClass="normaltext"
+                                            p:placeholder="Janez Novak"
+                                            requiredMessage="Vnesite ime prvega člana skupine."
+                                            value="#{projectBean.mate1}"
+                                            validatorMessage="Dolžina imena člana skupine mora biti krajša od 30 znakov.">
+                                            <f:validateLength maximum="30" />
+                                            </h:inputText> 
+                                        </label></p>
+                                    <h:message id="mate2Message" for="mate2InputText" styleClass="error"/>
+                                    <p><label>
+                                            <h:inputText id="mate2InputText" required="true"
+                                            styleClass="normaltext"
+                                            p:placeholder="Janez Novak"
+                                            requiredMessage="Vnesite ime drugega člana skupine."
+                                            value="#{projectBean.mate2}"
+                                            validatorMessage="Dolžina imena člana skupine mora biti krajša od 30 znakov.">
+                                            <f:validateLength maximum="30" />
+                                            </h:inputText> 
+                                        </label></p>
+                            </p>
+                            <h:message id="projectMessage" for="projectInputText" styleClass="error"/>
+                            <p>
+                                    Internetni naslov, kjer je naložen vaš projekt:
+                                    <label>
+                                       <h:inputText id="projectInputText" required="true"
+                                        styleClass="normaltext"
+                                        p:placeholder="http://www.google.com/"
+                                        requiredMessage="Vnesite internetni naslov, kjer se nahaja vaš projekt."
+                                        value="#{projectBean.projectSource}"
+                                        validatorMessage="Dolžina internetnega naslova mora biti krajša od 30 znakov.">
+                                        <f:validateLength maximum="30" />
+                                        </h:inputText> 
+                                    </label>
+                            </p>
+                            <h:message id="codeMessage" for="codeInputText" styleClass="error"/>
+                            <p>
+                                    Internetni naslov, kjer je naložena vaša izvorna koda:
+                                    <label>
+                                       <h:inputText id="codeInputText" required="true"
+                                        styleClass="normaltext"
+                                        p:placeholder="http://www.google.com/"
+                                        requiredMessage="Vnesite internetni naslov, kjer se nahaja vaša koda projekta."
+                                        value="#{projectBean.codeSource}"
+                                        validatorMessage="Dolžina internetnega naslova mora biti krajša od 30 znakov.">
+                                        <f:validateLength maximum="30" />
+                                        </h:inputText> 
+                                    </label>
+                            </p>
+                            <p>
+                                    <h:commandButton value="Dokončno oddaj projekt" styleClass="submit_btn" type="submit" action="#{projectBean.addProject()}" >
+                                        <f:ajax execute="titleInputText platformInputText mate1InputText mate2InputText projectInputText codeInputText"
+                                                render="titleMessage platformMessage mate1Message mate2Message projectMessage codeMessage"/>
+
+                                    </h:commandButton>
+                            </p>
+                        </h:form>
+		</div>
+	</div>
+	<div id="footer_wrapper">    
+    <div id="footer">
+    	<p>Copyright © 2013 Luka Krsnik</p>
+    </div>
+	</div>
+	</h:body>
+</html>

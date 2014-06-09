@@ -1,0 +1,113 @@
+<?xml version="1.0"?>
+<deitel:prevodi xmlns:deitel="http://www.deitel.com/prevodi" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.deitel.com/prevodi prevodi.xsd">
+	<prevod>
+		<sl>Domov</sl>
+		<en>Home</en>
+	</prevod>
+	<prevod>
+		<sl>Kriterij</sl>
+		<en>Criterion</en>
+	</prevod>
+	<prevod>
+		<sl>Projekti</sl>
+		<en>Projects</en>
+	</prevod>
+	<prevod>
+		<sl>Ocenjevanje</sl>
+		<en>Grading</en>
+	</prevod>
+	<prevod>
+		<sl>Prijava</sl>
+		<en>Sign in</en>
+	</prevod>
+	<prevod>
+		<sl>Navodila za oddajo projekta:</sl>
+		<en>Instruction for uploading your project:</en>
+	</prevod>
+	<prevod>
+		<sl>Oddaja vašega projekta:</sl>
+		<en>Upload your project:</en>
+	</prevod>
+	<prevod>
+		<sl>Naslov vašega projekta:</sl>
+		<en>Title of your project:</en>
+	</prevod>
+	<prevod>
+		<sl>Platforma:</sl>
+		<en>Platform</en>
+	</prevod>
+	<prevod>
+		<sl>Ostali člani skupine:</sl>
+		<en>Other group members:</en>
+	</prevod>
+	<prevod>
+		<sl>Oddaja projekta:</sl>
+		<en>Upload project:</en>
+	</prevod>
+	<prevod>
+		<sl>Oddaja izvorne kode:</sl>
+		<en>Upload source code:</en>
+	</prevod>
+	<prevod>
+		<sl>Vpišite naslov projekta</sl>
+		<en>Enter the title of your project</en>
+	</prevod>
+	<prevod>
+		<sl>Vpišite platformo na kateri boste delali</sl>
+		<en>Enter the platform of your project</en>
+	</prevod>
+	<prevod>
+		<sl>Vpišite imena ostalih članov</sl>
+		<en>Enter the names of other group members</en>
+	</prevod>
+	<prevod>
+		<sl>Zapišite pot do končnega projekta na vašem računalniku</sl>
+		<en>Enter path to finnal project on your computer</en>
+	</prevod>
+	<prevod>
+		<sl>Zapišite pot do izvorne kode na vašem računalniku</sl>
+		<en>Enter the path to source code of your project</en>
+	</prevod>
+	<prevod>
+		<sl>Najdi pot</sl>
+		<en>Find path</en>
+	</prevod>
+	<prevod>
+		<sl>Dodaj oddajo</sl>
+		<en>Upload</en>
+	</prevod>
+	<prevod>
+		<sl>Najdi pot</sl>
+		<en>Find path</en>
+	</prevod>
+	<prevod>
+		<sl>Dodaj oddajo</sl>
+		<en>Upload</en>
+	</prevod>
+	<prevod>
+		<sl>Dokoncno oddaj projekt</sl>
+		<en>Finnal upload</en>
+	</prevod>
+	<prevod>
+		<sl>Vnesite naslov projekta.</sl>
+		<en>Enter title of your project.</en>
+	</prevod>
+	<prevod>
+		<sl>Vnesite imena in priimke ostalih članov skupine.</sl>
+		<en>Enter names and surnames of other members from your group.</en>
+	</prevod>
+	<prevod>
+		<sl>Vnesite pot do projekta.</sl>
+		<en>Enter path to your project.</en>
+	</prevod>
+	<prevod>
+		<sl>Vnesite pot do izvorne kode.</sl>
+		<en>Enter path to your source code.</en>
+	</prevod>
+	<prevod>
+		<sl>English language</sl>
+		<en>Slovenski jezik</en>
+	</prevod>
+</deitel:prevodi>

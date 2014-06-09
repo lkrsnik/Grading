@@ -1,0 +1,17 @@
+# Read about fixtures at http://api.rubyonrails.org/classes/ActiveRecord/Fixtures.html
+
+one:
+  naslov: MyString
+  platforma: MyString
+  mate1: MyString
+  mate2: MyString
+  sourceProject: MyString
+  sourceCode: MyString
+
+two:
+  naslov: MyString
+  platforma: MyString
+  mate1: MyString
+  mate2: MyString
+  sourceProject: MyString
+  sourceCode: MyString

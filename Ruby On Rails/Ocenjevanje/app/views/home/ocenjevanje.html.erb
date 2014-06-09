@@ -1,0 +1,159 @@
+<%= javascript_include_tag("ocenjevanje.js") %>
+<%= javascript_include_tag("generic.js") %>
+<%= javascript_include_tag("readxml.js") %>
+
+<div id="wrapper">
+  <div id="header">
+    <div id="site_title"></div>
+  </div>
+  <div id="menu" class="menucss">
+    <ul>
+      <li><a href = "index">Domov</a></li>
+      <li><a href = "kriterij">Kriterij</a></li>
+      <% if session[:rank][0]=="student" %>
+      <li><a href = "projekti">Projekti</a></li>
+      <% end %>
+      <li><a href = "ocenjevanje" class="selected">Ocenjevanje</a></li>
+      <% if !session.has_key?("rank") %>
+          <li><a href = "prijava">Prijava</a></li>
+      <% end %>
+    </ul>
+  </div>
+  <div id="main">
+    <form method = "post" action="prijava"><input id="prevod" type = "submit" class="submit_btn" value = "Odjava" /></form>
+    <h3>Vaša ocena je:</h3>
+
+    <% if session[:rank][0]=="student" %>
+    <p class="giant">
+      <%= @finalGrade %>
+    </p>
+    <% end %>
+
+    <div id="tabelaSeznama">
+    </div>
+    <form method="post" action="ocenjevanje">
+      <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+    <p>
+      <label> Izberite projekt, ki ga želite oceniti:<br>
+        <select id="selektor" name = "groceries" class="normaltext" multiple="multiple">
+
+          <% @projectsAll.each do |element| %>
+              <% if TheGrade.where(user: session[:ime]).where(proj: element[:naslov]).empty?%>
+                  <option> <%= element[:naslov] %> </option>
+
+              <% end%>
+
+          <% end %>
+        </select>
+      </label><br>
+      <label>
+        <!--<input type = "button" class="submit_btn" value = "Pokaži končni izdelek" />-->
+      </label><label>
+      <!--<input type = "button" class="submit_btn" value = "Pokaži izvorno kodo" />-->
+    </label>
+      <input id="btn1" type = "submit" class="submit_btn" value = "Prikaži in oceni projekt" />
+    </p>
+
+    </form>
+    <% if session.has_key?("proj") %>
+    <form method="post" action="ocenjevanje">
+    <div id="ocenjevanje">
+
+        <%= hidden_field_tag "authenticity_token", form_authenticity_token %>
+        <h3 id="nahajal">Linka na projekt <%= session[:proj] %>:</h3>
+        <p>
+        <a href = "<%= @projName.pluck(:sourceProject)[0] %>">Link na končni izdelek</a></li><br />
+        <a href = "<%= @projName.pluck(:sourceCode)[0] %>">Link na izvorno kodo</a></li>
+        </p>
+
+        <p id="errorGradeStudents" class="error">Napačen vnos ocene. Vpišite število med 1 in 10.</p>
+        <% if session[:rank][0]=="profesor" or session[:rank][0]=="asistent" %>
+        <h3 id="naslovSklopa">Ocenjevanje projekta <%= session[:proj] %>:</h3>
+        <p>
+          Oceni projekt:<br>
+          <label>
+            <input id="proff" type = "text" class="normaltext" name="proOcena" required />
+          </label><br>
+          Komentar k oceni:<br>
+          <textarea name = "comments"
+                    rows = "6" cols = "40"></textarea><br>
+
+        </p>
+        <% end %>
+        <% if session[:rank][0]=="student" %>
+        <% if !(@projName.pluck(:mate0)[0]==session[:ime] || @projName.pluck(:mate1)[0]==session[:ime] || @projName.pluck(:mate2)[0]==session[:ime]) %>
+
+        <h3 id="naslovSklopa">Ocenjevanje drugega projekta <%= session[:proj] %>:</h3>
+        <p>
+            Oceni projekt:<br>
+            <label>
+              <input name = "ocena" type = "radio"
+                     value = "100" checked></label>Dobro
+            <label>
+              <input name = "ocena" type = "radio"
+                     value = "50"></label>Srednje
+            <label>
+              <input name = "ocena" type = "radio"
+                     value = "0" ></label>Slabo
+            <br>
+            Komentar k oceni:<br>
+            <textarea name = "comments"
+                      rows = "6" cols = "40"></textarea><br>
+
+          </p>
+          <% else %>
+          <h3 id="naslovSklopa">Ocenjevanje sošolcev znotraj projekta <%= session[:proj] %>:</h3>
+          <p id="errorGradeInside" class="error">Ime sošolca znotraj projekta ni pravilno vnešeno.</p>
+          <p>
+            Oceni sošolce znotraj projekta:<br>
+            <label>
+              <input name = "ocenaZ" type = "radio"
+                     value = "100" checked></label>Dobro
+            <label>
+              <input name = "ocenaZ" type = "radio"
+                     value = "50"></label>Srednje
+            <label>
+              <input name = "ocenaZ" type = "radio"
+                     value = "0" ></label>Slabo
+            <br>
+            Komentar k oceni:<br>
+            <textarea name = "comments"
+                      rows = "6" cols = "40"></textarea><br>
+
+          </p>
+        <% end %>
+        <% end %>
+        <input id="btn3" type = "submit" class="submit_btn" value = "Oceni" />
+    </div>
+    </form>
+    <% else %>
+        <h3 id="naslovSklopa">Niste izbrali projekta, ali pa ste že vse ocenili.</h3>
+    <% end %>
+
+    <%TheGrade.all.each do |element|%>
+    <%if element[:proj]==@myProj && !@myProj.nil? && element[:user]!=session[:ime]%>
+     <%if !element[:komentar_p].nil?%>
+    <strong><%=element[:user]%></strong><br />
+    <%=element[:komentar_p]%>
+    <hr />
+    <%end%>
+    <%if !element[:komentar_s].nil?%>
+    <strong><%=element[:user]%></strong><br />
+    <%=element[:komentar_s]%>
+    <hr />
+    <%end%>
+    <%if !element[:komentar_m].nil?%>
+    <strong><%=element[:user]%></strong><br />
+    <%=element[:komentar_m]%>
+    <hr />
+    <%end%>
+    <%end%>
+    <%end%>
+
+  </div>
+</div>
+<div id="footer_wrapper">
+  <div id="footer">
+    <p>Copyright © 2013 Luka Krsnik</p>
+  </div>
+</div>

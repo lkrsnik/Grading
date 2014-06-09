@@ -1,0 +1,20 @@
+<?xml version="1.0"?>
+<deitel:studenti xmlns:deitel="http://www.deitel.com/studenti" 
+  xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" 
+  xsi:schemaLocation="http://www.deitel.com/studenti studenti.xsd">
+	<student vpisna="63110898">
+		<ime>Janez</ime>
+		<priimek>Novak</priimek>
+		<projekt>projekt1</projekt>
+	</student>
+	<student vpisna="63110123">
+		<ime>Micka</ime>
+		<priimek>Prešeren</priimek>
+		<projekt>projekt3</projekt>
+	</student>
+	<student vpisna="63110007">
+		<ime>James</ime>
+		<priimek>Bond</priimek>
+		<projekt>projekt7</projekt>
+	</student>
+</deitel:studenti>

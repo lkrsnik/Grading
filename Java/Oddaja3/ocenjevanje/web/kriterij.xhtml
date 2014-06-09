@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<!-- New HTML5 section elements. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/xml; charset=utf-8"/>
+		<meta name="description" content="Aplikacija e-Ocenjevanje" />
+                <f:metadata>
+                    <f:event type="preRenderView" listener="#{gradingBean.getGrading()}"/>
+                </f:metadata>
+                    
+		<title>e-Ocenjevanje</title>
+		
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/menucss.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="kriterij.js"></script>
+		<script src="generic.js"></script>
+	</h:head>
+	<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="site_title"></div>
+		</div>
+		<div id="menu" class="menucss">
+			<ul>
+				<li><a href = "index.xhtml">Domov</a></li>
+				<h:panelGroup layout="block" rendered="#{menuTagsBean.kriterij}">
+				<li><a href = "kriterij.xhtml" class="selected">Kriterij</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.projekti}">
+				<li><a href = "projekti.xhtml">Projekti</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.ocenjevanje}">
+				<li><a href = "ocenjevanje.xhtml">Ocenjevanje</a></li>
+                                </h:panelGroup>
+				<h:panelGroup layout="block" rendered="#{userBean.isNoone}">
+				<li><a href = "prijava.xhtml">Prijava</a></li>
+                                </h:panelGroup>
+			</ul>
+		</div>
+		<div id="main">
+                        <h:form><h:commandButton styleClass="submit_btn_logout" value = "Odjavi me" action="#{userBean.noOne()}" /></h:form>
+                        <h:panelGroup layout="block" rendered="#{!userBean.isProf}">
+			<div id="students">
+				<h3>Navodila za ocenjevanje:</h3>
+				<div id="tabela">
+					
+				</div>
+			</div>
+                        </h:panelGroup>
+			<!--<div id="white_space"></div>-->
+                        <h:panelGroup layout="block" rendered="#{userBean.isProf}">
+			<div id="evaluation_form">
+				<h:form>
+					<h3>Navodila za ocenjevanje:</h3>
+					<p id="errorInstructions" class="error">Vnesite tekst z navodili kako nameravate oceniti delo študentov.</p>
+					<h:message id="instructionsMessage" for="instructionsInputText" styleClass="error"/>
+                                        <p><label>
+						<h:inputTextarea id="instructionsInputText" required="true"
+                                                   requiredMessage="Vnesite navodila za ocenjevanje."
+                                                   value="#{gradingBean.instructions}"
+						   validatorMessage="Navodila presegajo 600 znakov."
+                                                   rows = "6" cols = "60">
+                                                    <f:validateLength maximum="600" />
+                                                </h:inputTextarea>
+					 </label></p>
+					 <h3>Delež ocene, ki jo doprinesejo posamezni faktorji:</h3>
+					 <p id="errorSlider" class="error">Napačni deleži ocene. Vsota vseh treh deležev mora biti enaka 100.</p>
+					 <p id="errorNotANumber" class="error">Vnosni podatki morajo biti številke.</p>
+					 <h:message id="numProMessage" for="numProInputText" styleClass="error"/>
+                                         <h:message id="numAsiMessage" for="numAsiInputText" styleClass="error"/>
+                                         <h:message id="numStuMessage" for="numStuInputText" styleClass="error"/>
+                                         <p>
+						<label>Profesor:<br /> </label>
+                                                <label><!--<input id="proNum" name = "number1" type="number" min="0" max="100" value="0" placeholder = "0-100"  class="input_field" required="required" />-->
+                                                    <h:inputText id="numProInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    requiredMessage="Vnesite številko pod Profesorja. "
+                                                    value="#{gradingBean.prof}"
+                                                    validatorMessage="Pod profesorjem morate število med 1 in 100. ">
+                                                    <f:validateRegex pattern="[0-9]{1}[0-9]?|100" />
+                                                    </h:inputText>
+                                                    <br /></label>
+						<label>Asistent:<br /> </label>
+                                                <label><h:inputText id="numAsiInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    requiredMessage="Vnesite številko pod Asistenta. "
+                                                    value="#{gradingBean.asist}"
+                                                    validatorMessage="Pod asistentom morate število med 1 in 100. ">
+                                                    <f:validateRegex pattern="[0-9]{1}[0-9]?|100" />
+                                                    </h:inputText><br /></label>
+						<label>Študenti:<br /> </label>
+                                                <label><h:inputText id="numStuInputText" required="true"
+                                                    styleClass="normaltext"
+                                                    requiredMessage="Vnesite številko pod Študentom. "
+                                                    value="#{gradingBean.stud}"
+                                                    validatorMessage="Pod študentom morate število med 1 in 100. ">
+                                                    <f:validateRegex pattern="[0-9]{1}[0-9]?|100" />
+                                                    </h:inputText><br /></label>	
+					 </p>
+					 <p>
+						<!--<input id="nastaviKriterij" type = "submit" class="submit_btn" value = "Potrdi kriterij" />-->
+						<h:commandButton id="nastaviKriterij" value="Potrdi kriterij" styleClass="submit_btn" type="submit" action="#{gradingBean.changeGrading()}">
+                                                    <f:ajax execute="instructionsInputText numProInputText numAsiInputText numStuInputText"
+                                                            render="instructionsMessage numProMessage numAsiMessage numStuMessage"/>
+                                                    
+                                                </h:commandButton>
+                                                <input type = "reset" class="submit_btn" value = "Ponastavi vse" />
+					 </p> 
+				</h:form>
+			</div>
+                        </h:panelGroup>
+		</div>
+	</div>
+	<div id="footer_wrapper">    
+    <div id="footer">
+    	<p>Copyright © 2013 Luka Krsnik</p>
+    </div>
+	</div>
+	</h:body>
+</html>

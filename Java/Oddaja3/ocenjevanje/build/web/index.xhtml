@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+
+<!-- New HTML5 section elements. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8"/>
+		<meta name="description" content="Aplikacija e-Ocenjevanje" />
+                <f:metadata>
+
+                </f:metadata>
+		<title>e-Ocenjevanje</title>
+		
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/menucss.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="index.js"></script>
+		<script src="generic.js"></script>
+	</h:head>
+	<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="site_title"></div>
+		</div>
+		<div id="menu" class="menucss">
+			<ul>
+				<li><a href = "index.xhtml" class="selected">Domov</a></li>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.kriterij}">
+				<li><a href = "kriterij.xhtml">Kriterij</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.projekti}">
+				<li><a href = "projekti.xhtml">Projekti</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.ocenjevanje}">
+				<li><a href = "ocenjevanje.xhtml">Ocenjevanje</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{userBean.isNoone}">
+				<li><a href = "prijava.xhtml">Prijava</a></li>
+                                </h:panelGroup>
+                                
+			</ul>
+		</div>
+		<div id="main">
+                    <h:panelGroup layout="block" rendered="#{!userBean.isNoone}">
+                    <h:form><h:commandButton styleClass="submit_btn_logout" value = "Odjavi me" action="#{userBean.noOne()}" /></h:form>
+                    </h:panelGroup>
+                        <p>
+				Pozdravljeni v sistemu E-Ocenjevanje. Sistem je namenjen oddajanju študentskih projektov, ter dinamičnemu ocenjevanju le teh.
+				Za delovanje znotraj sistema je najprej potrebna prijava, nato pa boste imeli možnost oddajanja projektov, dodajanja komentarjev in ocenjevanja drugih študentov.
+			</p>
+			<img id="slika" src="images/evaluation.jpg" alt="slika" height="183" width="276"/>
+		</div>
+	</div>
+	<div id="footer_wrapper">    
+    <div id="footer">
+    	<p>Copyright © 2013 Luka Krsnik</p>
+    </div>
+	</div>
+	</h:body>
+</html>

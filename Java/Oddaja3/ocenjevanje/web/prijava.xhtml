@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+
+<!-- New HTML5 section elements. -->
+<html xmlns="http://www.w3.org/1999/xhtml"
+   xmlns:h="http://java.sun.com/jsf/html"
+   xmlns:f="http://java.sun.com/jsf/core">
+	<h:head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+		<meta name="description" content="Aplikacija e-Ocenjevanje" />
+		<title>e-Ocenjevanje</title>
+		
+		<link href="style.css" rel="stylesheet" type="text/css" />
+		<link rel="stylesheet" type="text/css" href="css/menucss.css" />
+		<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+		<script src="prijava.js"></script>
+		<script src="generic.js"></script>
+	</h:head>
+	<h:body>
+	<div id="wrapper">
+		<div id="header">
+			<div id="site_title"></div>
+		</div>
+		<div id="menu" class="menucss">
+			<ul>
+				<li><a href = "index.xhtml">Domov</a></li>
+				<h:panelGroup layout="block" rendered="#{menuTagsBean.kriterij}">
+				<li><a href = "kriterij.xhtml">Kriterij</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.projekti}">
+				<li><a href = "projekti.xhtml">Projekti</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{menuTagsBean.ocenjevanje}">
+				<li><a href = "ocenjevanje.xhtml">Ocenjevanje</a></li>
+                                </h:panelGroup>
+                                <h:panelGroup layout="block" rendered="#{userBean.isNoone}">
+				<li><a href = "prijava.xhtml" class="selected">Prijava</a></li>
+                                </h:panelGroup>
+			</ul>
+		</div>
+		<div id="main">
+			<h:form>
+				<!--<p id="errorUser" class="error">Vnesite uporabniško ime.</p>-->
+                                <h:message id="nameMessage" for="nameInputText" styleClass="error"/>
+				<p>
+					<label>Uporabniško ime:<br />
+					   <!--<input name = "username" class="normaltext" type = "text" /> -->
+                                           <h:inputText id="nameInputText" required="true"
+                                            styleClass="normaltext"
+                                            requiredMessage="Vnesite uporabniško ime."
+                                            value="#{userBean.name}"
+                                            validatorMessage="Vaše ime mora biti krajše od 30 znakov.">
+                                            <f:validateLength maximum="30" />
+                                            </h:inputText>
+                                           
+                                        </label>
+				 </p>
+				 <!--<p id="errorPass" class="error">Vnesite geslo.</p>-->
+                                 <h:message id="passMessage" for="passInputText" styleClass="error"/>
+				 <p>
+					<label>Geslo:<br />
+					   <!--<input name = "password" class="normaltext" type = "password" /> -->
+                                           <h:inputSecret id="passInputText" required="true"
+                                            styleClass="normaltext"
+                                            requiredMessage="Vnesite geslo."
+                                            value="#{userBean.pass}"
+                                            validatorMessage="Vaše geslo mora biti krajše od 30 znakov.">
+                                            <f:validateLength maximum="30" />
+                                            </h:inputSecret>
+                                           
+					</label>
+				 </p>
+				 <p>
+					<!--<input id="prijava" type = "submit" class="submit_btn" value = "Prijava" />-->
+                                        <h:commandButton value="Prijava" styleClass="submit_btn" action="#{userBean.validateUser()}">
+                                            <f:ajax execute="nameInputText passInputText"
+                                                    render="nameMessage passMessage"/>
+                                        </h:commandButton>
+				 </p>  
+			</h:form>
+                        <p>
+                                <a href = "registracija.xhtml">Registracija</a>
+                         </p>
+		</div>
+	</div>
+	<div id="footer_wrapper">    
+    <div id="footer">
+    	<p>Copyright © 2013 Luka Krsnik</p>
+    </div>
+	</div>
+	</h:body>
+</html>

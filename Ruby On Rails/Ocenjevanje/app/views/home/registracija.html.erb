@@ -1,0 +1,96 @@
+<%= javascript_include_tag("registracija.js") %>
+<%= javascript_include_tag("generic.js") %>
+
+
+<div id="wrapper">
+  <div id="header">
+    <div id="site_title"></div>
+  </div>
+  <div id="menu" class="menucss">
+    <ul>
+      <li><a href = "index">Domov</a></li>
+      <% if session.has_key?("rank") %>
+      <li><a href = "kriterij">Kriterij</a></li>
+      <li><a href = "projekti">Projekti</a></li>
+      <li><a href = "ocenjevanje">Ocenjevanje</a></li>
+      <% end %>
+      <li><a href = "prijava">Prijava</a></li>
+    </ul>
+  </div>
+  <div id="main">
+    <div id="evaluation_form">
+      <form id="dodajUporabnika" method = "post" action="registracija">
+        <p>
+          <label>Uporabniško ime:<br>
+            <input name = "uporabnik" class="normaltext" type = "text" required/>
+          </label>
+        </p>
+        <p id="errorPass" class="error">Vaše geslo se ne ujema s ponovljenim geslom ali pa ga niste vnesli.</p>
+        <p>
+          <label>Vnesite geslo:<br>
+            <input name = "pass1" class="normaltext" type = "password" id="pas1"required/>
+          </label>
+        </p>
+        <p>
+          <label>Ponovno vnesite geslo:<br>
+            <input name = "pass2" class="normaltext" type = "password" id="pas2" required/>
+          </label>
+        </p>
+        <p id="errorName" class="error">Napačen vnos, vnesite svoje ime.</p>
+        <p>
+          <label>Ime:<br>
+            <input name = "ime" class="normaltext" type = "text" placeholder = "Janez" required/>
+          </label>
+        </p>
+        <p id="errorSurname" class="error">Napačen vnos, vnesite svoj priimek.</p>
+        <p>
+          <label>Priimek:<br>
+            <input name = "priimek" class="normaltext" type = "text" placeholder = "Novak" required/>
+          </label>
+        </p>
+        <p>
+          <label>Vpisna številka:<br>
+            <input name = "number" class="normaltext" type = "text" placeholder = "63110000" pattern = "\d{8}" required/>
+          </label>
+        </p>
+        <p>
+          <label>Email:<br>
+            <input name="email" type = "email" class="normaltext" placeholder = "ime@domena.si"
+                   required />
+          </label>
+        </p>
+        <p>
+          <label>Telefonska številka:<br>
+            <input name="phone" type = "tel" class="normaltext" placeholder = "040111222"
+                   pattern = "\d{9}" required />
+          </label>
+        </p>
+        <p>
+          Ste profesor, asistent ali študent?<br>
+
+          <label>
+            <input name = "rank" type = "radio"
+                   value = "profesor"></label>Profesor
+          <label>
+            <input name = "rank" type = "radio"
+                   value = "asistent"></label>Asistent
+          <label>
+            <input name = "rank" type = "radio"
+                   value = "student" checked></label>Študent
+        </p>
+        <p>
+          <label>
+            <input type = "submit" class="submit_btn" id="potrdi" value = "Registriraj se" />
+          </label><label>
+          <input type = "reset" class="submit_btn" value = "Ponastavi vse" />
+        </label>
+        </p>
+      </form>
+    </div>
+  </div>
+</div>
+<div id="footer_wrapper">
+  <div id="footer">
+    <p>Copyright © 2013 Luka Krsnik</p>
+  </div>
+</div>

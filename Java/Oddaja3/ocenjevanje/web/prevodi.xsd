@@ -1,0 +1,24 @@
+<?xml version = "1.0"?>
+
+<!-- Simple W3C XML Schema document -->
+<schema xmlns = "http://www.w3.org/2001/XMLSchema"    
+   xmlns:deitel = "http://www.deitel.com/prevodi"    
+   targetNamespace = "http://www.deitel.com/prevodi">
+
+   <element name = "prevodi" type = "deitel:PrevodiType"/>
+
+   <complexType name = "PrevodiType">
+      <sequence>
+         <element name = "prevod" type = "deitel:PrevodType"
+            minOccurs = "1" maxOccurs = "unbounded"/>         
+      </sequence>
+   </complexType>
+
+   <complexType name = "PrevodType">
+      <all>
+         <element name = "sl" type = "string"/>
+		 <element name = "en" type = "string"/>
+      </all>
+   </complexType>
+</schema>
+
